@@ -39,6 +39,38 @@ class Canvas {
     this.ctx.stroke();
   }
 
+  //迟早要用来替代下面的webDiv
+  handle(node,ths){
+
+    if(node.type == "create"){
+      //生成
+      var element = document.createElement(node.elementTag);
+      element.innerHTML = node.value;
+      element.className = node.elementCss
+      //这个动画效果也要配置化
+      element.className = element.className+" showNode";
+      element.style.left = node.offsetX+"px";
+      element.style.top = node.offsetY+"px";
+      if(node.id != null){
+        element.setAttribute("id",node.id);
+      }
+      if(node.container == null){
+        ths.box.appendChild(element);
+      }else{
+        node.container.appendChild(element);
+      }
+
+      if(node.canvas["isDrawLine"] == 1){
+        ths.drawLine(node.offsetX,node.offsetY,node.canvas["toX"],node.canvas["toY"]);
+      }
+    }else if(node.type == "vanish") {
+
+      Lib.vanish(node.id,0);
+    }else if(node.type == "force"){
+      Lib.addClassNoCheck(document.getElementById(node.id),"forceNode");
+    }
+  }
+  //@deprecated
   webDiv(node,element){
 
     //console.log(typeof(element));
@@ -66,6 +98,10 @@ class Canvas {
       this.node[i].className = "box showNode";
     }
   }
+
+  //没能低耦合，要改
+  //@deprecated
+  /*
   forceNode(queue){
 
     var delayTime = this.delayTime;
@@ -75,8 +111,8 @@ class Canvas {
       setTimeout(Lib.addClassNoCheck,delayTime*i,document.getElementById("node_"+queue[i]),"forceNode");
       //Lib.addClass(this.node[queue[i]],"forceNode");
     }
-
   }
+  */
 
   drawBiTree(queue,i,timeDelay,element){
 
@@ -97,6 +133,7 @@ class Canvas {
     //this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
   }
 
+  //@deprecated
   draw(queue){
 
     var timeDelay = this.delayTime;

@@ -29,7 +29,33 @@ var Lib = {
     }else{
       addClass(ele, cls);
     }
+  },
+
+  vanish(objId,target){
+
+    var box = document.getElementById(objId);
+    var speed = 1;
+    var timer = null;
+    var alpha = 100;
+
+    clearInterval(timer);
+    timer = setInterval(function(){
+      if(target > alpha){
+        speed = 2;
+      }else{
+        speed = -2;
+      }
+      if(alpha == target){
+        clearInterval(timer);
+      }else{
+        alpha = alpha + speed;
+        box.style.filter = 'alpha(opacity='+alpha+')';
+        box.style.opacity = alpha/100;
+        //console.log(box.style.opacity);
+      }
+    },30)
   }
+
 }
 
 export {

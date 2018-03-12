@@ -1,18 +1,25 @@
 import {CanvasFactory} from '../static/Canvas.js';
+import {EventFactory} from '../static/Event.js';
+import {QueueFactory} from '../static/Queue.js';
 
 class BiTree {
 
   constructor(){
 
     this.data = "";
+    this.supportData = "";//第二个树数据
+
     //定义一个结构体，二叉树的
     this.node = this.initNode();
     this.canvas = new CanvasFactory("treeCanvas");
-
+    this.delayTime = 400;
+    this.delayTimeOffset = 1;
     //要初始化一堆东西
+
     this.nodeWidth = 30;//结点的宽度
     this.nodeHeight = 100;//上层结点与下层结点的距离
-
+    this.adjustHeight = 0;
+    this.boxWidth = this.nodeWidth;//宽度
     this.treeHight = this.getTreeHeight(this.data.length);
     this.bottomCount = Math.pow(2,this.treeHight-1);
     //结点位于屏幕半当中的位置
@@ -28,12 +35,19 @@ class BiTree {
     this.scaleWidth = 42;
     this.correctWidth = 10;
 
-    this.queue = Array();
+    //this.queue = Array();
+    //有的还在用老的，要改一下
+    this.queue = new QueueFactory(this.canvas);
   }
 
   setData(data){
     this.data = data;
   }
+
+  setSupportData(data){
+    this.supportData = data;
+  }
+
   //顺序二叉树
   createBiTree(offset)  {
 
@@ -60,21 +74,17 @@ class BiTree {
 
     if(node == null)return;
 
-    var currentInfo = {
-      data:node.data,
-      index:node.index,
-      left:left,
-      top:top,
-      parentLeft:0,
-      parentTop:0
-    }
 
+    //再让下面的生成（下面的已经完成了）试试加到trigger里面
+    var e = this.createEvent("create",node.data,"tree_"+node.index,this.delayTime*this.delayTimeOffset,"div","box",left,top,null);
+    this.delayTimeOffset++;
     if(parentInfo != null){
-      currentInfo.parentLeft = parentInfo.left;
-      currentInfo.parentTop = parentInfo.top;
+      e.canvas["isDrawLine"] = 1;
+      e.canvas["toX"] = parentInfo.offsetX;
+      e.canvas["toY"] = parentInfo.offsetY;
     }
 
-    this.queue.push(currentInfo);
+    this.queue.push(e);
 
     //var parentDiv = this.canvas.webDiv(node.data,left,top,parentDiv);
     /*
@@ -89,16 +99,16 @@ class BiTree {
       var offset = 0;
     }
     top+=this.nodeHeight;
-    this.showBiTree(node.lchild,left-leftOffset+offset,top,currentInfo);
-    this.showBiTree(node.rchild,left+leftOffset-offset,top,currentInfo);
+    this.showBiTree(node.lchild,left-leftOffset+offset,top,e);
+    this.showBiTree(node.rchild,left+leftOffset-offset,top,e);
     //this.showBiTree(node.lchild,left-leftOffset+offset,top,parentDiv);
     //this.showBiTree(node.rchild,left+leftOffset-offset,top,parentDiv);
   }
 
   orderTraversel(node,type){
 
-    this.queue = new Array();//重置
-
+    //this.queue = new Array();//重置
+    this.delayTimeOffset = 0;
     if(type == "in"){
       this.inOrderTraverse1(node);
     }else if(type == "post"){
@@ -106,16 +116,16 @@ class BiTree {
     }else{  //默认用前序
       this.preOrderTraverse1(node);
     }
-
-
-    this.canvas.forceNode(this.queue);
+    this.run();
+    //this.canvas.forceNode(this.queue);
   }
   //前序
   preOrderTraverse1(node){
 
     if (node != null) {
-      //this.canvas.forceNode(node.index);
-      this.queue.push(node.index);
+      var e = this.createEvent("force",node.data,"tree_"+node.index,this.delayTime*this.delayTimeOffset,"div","box",0,0,null);
+      this.delayTimeOffset++;
+      this.queue.push(e);
       this.preOrderTraverse1(node.lchild);
       this.preOrderTraverse1(node.rchild);
     }
@@ -124,10 +134,10 @@ class BiTree {
   inOrderTraverse1(node){
 
     if (node != null) {
-      //this.canvas.forceNode(node.index);
       this.inOrderTraverse1(node.lchild);
-      console.log(node.index);
-      this.queue.push(node.index);
+      var e = this.createEvent("force",node.data,"tree_"+node.index,this.delayTime*this.delayTimeOffset,"div","box",0,0,null);
+      this.delayTimeOffset++;
+      this.queue.push(e);
       this.inOrderTraverse1(node.rchild);
     }
   }
@@ -135,10 +145,11 @@ class BiTree {
   postOrderTraverse1(node){
 
     if (node != null) {
-      //this.canvas.forceNode(node.index);
       this.postOrderTraverse1(node.lchild);
       this.postOrderTraverse1(node.rchild);
-      this.queue.push(node.index);
+      var e = this.createEvent("force",node.data,"tree_"+node.index,this.delayTime*this.delayTimeOffset,"div","box",0,0,null);
+      this.delayTimeOffset++;
+      this.queue.push(e);
     }
   }
 
@@ -167,6 +178,189 @@ class BiTree {
     return height;
   }
 
+  showBiTreeV2(node,left,top,parentInfo){
+
+    if(node == null)return;
+
+    //先把列表中的同样的按钮挪掉
+
+    for(var i = 0;i<this.data.length;i++){
+
+      if(node.data == this.data[i]){
+        //消失
+        var e = this.createEvent("vanish",node.data,"mainTree_"+i,this.delayTime*this.delayTimeOffset,null,null,0,0,null);
+        this.queue.push(e);
+      }
+    }
+
+    for(var i = 0;i<this.supportData.length;i++){
+      if(node.data == this.supportData[i]){
+        //消失
+        var e = this.createEvent("vanish",node.data,"supportTree_"+i,this.delayTime*this.delayTimeOffset,null,null,0,0,null);
+        this.queue.push(e);
+
+        //再让下面的生成（下面的已经完成了）试试加到trigger里面
+        var trigger = this.createEvent("create",node.data,"tree_"+node.index,this.delayTime*this.delayTimeOffset+this.delayTime,"div","box",left,top,null);
+
+        if(parentInfo != null){
+          trigger.canvas["isDrawLine"] = 1;
+          trigger.canvas["toX"] = parentInfo.offsetX;
+          trigger.canvas["toY"] = parentInfo.offsetY;
+        }
+
+        e.trigger.push(trigger);
+      }
+    }
+    this.delayTimeOffset++;
+    /*
+    //再让下面的生成（下面的已经完成了）试试加到trigger里面
+    var e = this.createEvent("create",node.data,"tree_"+node.index,0,"div","box",left,top,null);
+
+    if(parentInfo != null){
+      e.canvas["isDrawLine"] = 1;
+      e.canvas["toX"] = parentInfo.offsetX;
+      e.canvas["toY"] = parentInfo.offsetY;
+    }
+    this.queue.push(e);
+    */
+    /*
+    这一段其实也没太多的意义，是为了修正树越向下显示异常所以越向下左右
+    结点的距离就越缩小。
+     */
+    var leftOffset = this.leftOffsetDefault;
+    if(top>this.nodeHeight+this.adjustHeight){
+      var offset = (top/(this.nodeHeight+this.adjustHeight))*this.scaleWidth;
+      leftOffset = leftOffset+Math.pow(top/(this.nodeHeight+this.adjustHeight),2)-this.correctWidth;
+    }else{
+      var offset = 0;
+    }
+    top+=this.nodeHeight;
+    this.showBiTreeV2(node.lchild,left-leftOffset+offset,top,trigger);
+    this.showBiTreeV2(node.rchild,left+leftOffset-offset,top,trigger);
+
+  }
+
+  makeMainList(offsetX,offsetY){
+    var container = document.getElementById("mainTreeList");
+    //配置应该放到外面一层吧，先不管了
+    for(var i=0;i<this.data.length;i++){
+      //加入队列
+      var e = this.createEvent("create",this.data[i],"mainTree_"+i,0,"div","box",offsetX,offsetY,container);
+      this.queue.push(e);
+      offsetX += this.boxWidth+this.correctWidth;
+    }
+  }
+
+  makeSuupportList(offsetX,offsetY){
+    //配置应该放到外面一层吧，先不管了
+    var container = document.getElementById("supportTreeList");
+    for(var i=0;i<this.supportData.length;i++){
+      //加入队列
+      var e = this.createEvent("create",this.supportData[i],"supportTree_"+i,0,"div","box",offsetX,offsetY,container);
+      this.queue.push(e);
+      offsetX += this.boxWidth+this.correctWidth;
+    }
+  }
+
+  createEvent (type,value,id,delayTime,tag,css,offsetX,offsetY,container) {
+    var event = new EventFactory();
+    event.container = container;
+    event.type = type;
+    event.value = value;
+    event.id = id;
+    event.delayTime = delayTime;
+    event.offsetX = offsetX;
+    event.offsetY = offsetY;
+    event.elementTag = tag;
+    event.elementCss = css;
+    return event;
+
+  }
+  handlePreIn(){
+
+    var node = this.binaryTreeFromPreIn(0,0,this.data.length);
+    this.adjustHeight = 100;
+    this.run();
+    this.showBiTreeV2(node,this.nodeWidth,this.nodeHeight+this.adjustHeight,null);
+  }
+
+  binaryTreeFromPreIn(index,sIndex,length){
+
+    if(length == 0){
+      return null;
+    }
+
+    var node = this.initNode();
+    node.data = this.data[index]; //确认根结点
+    node.index = index;
+    node.lchild = null;
+    node.rchild = null;
+
+    //分割中序
+    var rootIndex;
+    for(rootIndex = 0;rootIndex<length;rootIndex++){
+      if(this.supportData[sIndex+rootIndex] == this.data[index])break;
+    }
+    node.lchild = this.binaryTreeFromPreIn(index+1,sIndex,rootIndex);
+    node.rchild = this.binaryTreeFromPreIn(index+rootIndex+1,sIndex+rootIndex+1,length-rootIndex-1);
+
+    return node;
+  }
+
+  binaryTreeFromInPost(index,sIndex,length,test){
+
+    if(length == 0){
+      return null;
+    }
+    if(test<=0)return null;
+    var node = this.initNode();
+    node.data = this.supportData[sIndex+length-1]; //确认根结点
+    node.index = index;
+    node.lchild = null;
+    node.rchild = null;
+
+    //分割中序
+    var rootIndex;
+    for(rootIndex = 0;rootIndex<length;rootIndex++){
+      if(this.data[index+rootIndex] == this.supportData[sIndex+length-1])break;
+    }
+    test--;
+    node.lchild = this.binaryTreeFromInPost(index,sIndex,rootIndex,test);
+    node.rchild = this.binaryTreeFromInPost(index+rootIndex+1,sIndex+rootIndex,length-rootIndex-1,test);
+
+    return node;
+  }
+
+  handlePrePost(){
+    console.log("handlePreIn");
+  }
+  handleInPre(){
+    //this.handleInPre();
+  }
+
+  handleInPost(){
+    var node = this.binaryTreeFromInPost(0,0,this.data.length,10);
+    this.adjustHeight = 100;
+    this.run();
+    this.showBiTreeV2(node,this.nodeWidth,this.nodeHeight+this.adjustHeight,null);
+  }
+
+  handlePostIn(){
+    //console.log("handlePreIn");
+  }
+  handlePostPre(){
+    //console.log("handlePreIn");
+  }
+
+  clear(){
+    this.canvas.clear();
+  }
+  run(){
+    this.queue.run();
+  }
+  killAll(){
+    this.queue.killAll();
+  }
 }
 
 function BiTreefactory(data) {
