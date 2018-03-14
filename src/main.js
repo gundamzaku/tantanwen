@@ -5,10 +5,11 @@ import BiTreeBase from './BiTreeBase'
 import BiTreeOrder from './BiTreeOrder'
 import Index from './Index'
 
+//组件
+import Footer from './components/Footer'
+
 Vue.use(VueRouter)
 Vue.config.productionTip = false
-
-
 
 const routes = [
   { path: '/', component: Index },
@@ -20,7 +21,7 @@ const router = new VueRouter({
   mode: 'history',
   routes // （缩写）相当于 routes: routes
 })
-
+Vue.component('footer-template', Footer)
 const index = new Vue({
-  router
+  router,
 }).$mount('#app')

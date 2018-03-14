@@ -8,8 +8,6 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-
-
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
@@ -30,6 +28,7 @@ module.exports = {
     }
   },
   module: {
+    //加入CSS的解析
     rules: [
       {
         test: /\.vue$/,

@@ -1,14 +1,12 @@
-
 <template>
   <div id="main">
     <div class="control">
       <div id="treeDataDiv" class="section">
         <div class="section">
-
-          <b-navbar toggleable="md" type="dark" variant="info">
+          <b-navbar toggleable type="dark" variant="info">
             <b-btn v-b-modal.modal1>输入二叉树数据</b-btn>
             <b-modal id="modal1" title="Enter BiTree Data" @ok="makeTree()">
-              <p class="my-4">请用如下格式[A,B,C,D,E]来列出二叉树数据</p>
+              <p class="my-4">请用如下格式[A,B,C,D,E]来列出二叉树数据<br>例：<br>前序：A,B,C,E,H,F,I,J,D,G,K<br>中序：A,H,E,C,I,F,J,B,D,K,G</p>
               <p class="my-4">
                 <b-row class="mb-1 text-center">
                   <b-col sm="3"><b-form-select v-model="mainType" :options="optionsMain" class="mb-3" v-on:change="dynamicOptions($event,'main')"/></b-col>

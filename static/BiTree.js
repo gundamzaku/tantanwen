@@ -104,14 +104,10 @@ class BiTree{
     var nodeChild = this.initNode();
     nodeChild.index = offset-1;
     nodeChild.data = data;
-    //console.log(nodeChild.index+"   "+nodeChild.data);
+
     nodeChild.lchild = this.createBiTree(2*offset);
     nodeChild.rchild = this.createBiTree(2*offset+1);
     return nodeChild;
-  }
-
-  draw(){
-    this.canvas.draw(this.queue);
   }
 
   showBiTree(node,left,top,parentInfo){

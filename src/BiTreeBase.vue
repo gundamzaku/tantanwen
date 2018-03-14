@@ -3,10 +3,10 @@
     <div class="control">
       <div class="section">
 
-        <b-navbar toggleable="md" type="dark" variant="info">
+        <b-navbar toggleable type="dark" variant="info">
           <b-btn v-b-modal.modal1>输入二叉树数据</b-btn>
           <b-modal id="modal1" title="Enter BiTree Data" @ok="makeBiTree()">
-            <p class="my-4">请用如下格式[A,B,C,D,E]来列出二叉树数据</p>
+            <p class="my-4">请用如下格式[A,B,C,D,E]来列出二叉树数据，如为空则用“#”表示<br>例：<br>A,B,C,#,E,#,G,#,#,J</p>
             <p class="my-4">
               <b-form-textarea id="textarea1"
                                v-model="agData"
