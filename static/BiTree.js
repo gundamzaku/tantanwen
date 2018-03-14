@@ -2,16 +2,25 @@ import {CanvasFactory} from '../static/Canvas.js';
 import {EventFactory} from '../static/Event.js';
 import {QueueFactory} from '../static/Queue.js';
 
-class BiTree {
+class BiTree{
 
   constructor(){
 
+    //var object = function(){};
+
+    //原型继承
+    //object.prototype = new CanvasFactory("treeCanvas");
+    //算了，独立使用
+    this.canvas = new CanvasFactory("treeCanvas");
+    //queue还是独立吧
+    this.queue = new QueueFactory(this.canvas);
+
+    //主数据和副数据
     this.data = "";
     this.supportData = "";//第二个树数据
 
     //定义一个结构体，二叉树的
     this.node = this.initNode();
-    this.canvas = new CanvasFactory("treeCanvas");
     this.delayTime = 400;
     this.delayTimeOffset = 1;
     //要初始化一堆东西
@@ -35,17 +44,52 @@ class BiTree {
     this.scaleWidth = 42;
     this.correctWidth = 10;
 
-    //this.queue = Array();
-    //有的还在用老的，要改一下
-    this.queue = new QueueFactory(this.canvas);
+    this.errCode = 0;
+    this.errMsg = "";
   }
 
+  //设置错误
+  setErr(code,msg){
+    this.errCode = code;
+    this.errMsg = msg;
+  }
+  //得到错误码
+  getErrCode(){
+    return this.errCode;
+  }
+  //得到错误提示
+  getErrMsg(){
+    return this.errMsg;
+  }
+  //分配数据
   setData(data){
     this.data = data;
   }
-
+  //分配副数据
   setSupportData(data){
     this.supportData = data;
+  }
+  //检查数据
+  checkData(data){
+    if(data.length<=0){
+      this.setErr(1002,"缺少足够的数据。")
+      return false;
+    }
+    if(data.length>30){
+      this.setErr(1002,"数据过多，只允许30个结点。");
+      return false;
+    }
+  }
+
+  /*
+    监控动画
+   */
+  watchDone(){
+    if(this.getCanvasFactory().getCounter()>0){
+      this.setErr(1003,"动画渲染未完成。")
+      return false;
+    }
+    return true;
   }
 
   //顺序二叉树
@@ -107,7 +151,6 @@ class BiTree {
 
   orderTraversel(node,type){
 
-    //this.queue = new Array();//重置
     this.delayTimeOffset = 0;
     if(type == "in"){
       this.inOrderTraverse1(node);
@@ -116,8 +159,8 @@ class BiTree {
     }else{  //默认用前序
       this.preOrderTraverse1(node);
     }
-    this.run();
-    //this.canvas.forceNode(this.queue);
+    this.getQueueFactory().run();
+
   }
   //前序
   preOrderTraverse1(node){
@@ -212,17 +255,7 @@ class BiTree {
       }
     }
     this.delayTimeOffset++;
-    /*
-    //再让下面的生成（下面的已经完成了）试试加到trigger里面
-    var e = this.createEvent("create",node.data,"tree_"+node.index,0,"div","box",left,top,null);
 
-    if(parentInfo != null){
-      e.canvas["isDrawLine"] = 1;
-      e.canvas["toX"] = parentInfo.offsetX;
-      e.canvas["toY"] = parentInfo.offsetY;
-    }
-    this.queue.push(e);
-    */
     /*
     这一段其实也没太多的意义，是为了修正树越向下显示异常所以越向下左右
     结点的距离就越缩小。
@@ -246,7 +279,7 @@ class BiTree {
     for(var i=0;i<this.data.length;i++){
       //加入队列
       var e = this.createEvent("create",this.data[i],"mainTree_"+i,0,"div","box",offsetX,offsetY,container);
-      this.queue.push(e);
+      this.getQueueFactory().push(e);
       offsetX += this.boxWidth+this.correctWidth;
     }
   }
@@ -257,7 +290,7 @@ class BiTree {
     for(var i=0;i<this.supportData.length;i++){
       //加入队列
       var e = this.createEvent("create",this.supportData[i],"supportTree_"+i,0,"div","box",offsetX,offsetY,container);
-      this.queue.push(e);
+      this.getQueueFactory().push(e);
       offsetX += this.boxWidth+this.correctWidth;
     }
   }
@@ -280,7 +313,7 @@ class BiTree {
 
     var node = this.binaryTreeFromPreIn(0,0,this.data.length);
     this.adjustHeight = 100;
-    this.run();
+    this.getQueueFactory().run();
     this.showBiTreeV2(node,this.nodeWidth,this.nodeHeight+this.adjustHeight,null);
   }
 
@@ -307,12 +340,12 @@ class BiTree {
     return node;
   }
 
-  binaryTreeFromInPost(index,sIndex,length,test){
+  binaryTreeFromInPost(index,sIndex,length){
 
     if(length == 0){
       return null;
     }
-    if(test<=0)return null;
+
     var node = this.initNode();
     node.data = this.supportData[sIndex+length-1]; //确认根结点
     node.index = index;
@@ -324,43 +357,29 @@ class BiTree {
     for(rootIndex = 0;rootIndex<length;rootIndex++){
       if(this.data[index+rootIndex] == this.supportData[sIndex+length-1])break;
     }
-    test--;
-    node.lchild = this.binaryTreeFromInPost(index,sIndex,rootIndex,test);
-    node.rchild = this.binaryTreeFromInPost(index+rootIndex+1,sIndex+rootIndex,length-rootIndex-1,test);
+
+    node.lchild = this.binaryTreeFromInPost(index,sIndex,rootIndex);
+    node.rchild = this.binaryTreeFromInPost(index+rootIndex+1,sIndex+rootIndex,length-rootIndex-1);
 
     return node;
   }
 
-  handlePrePost(){
-    console.log("handlePreIn");
-  }
-  handleInPre(){
-    //this.handleInPre();
-  }
-
   handleInPost(){
-    var node = this.binaryTreeFromInPost(0,0,this.data.length,10);
+    var node = this.binaryTreeFromInPost(0,0,this.data.length);
     this.adjustHeight = 100;
-    this.run();
+    this.getQueueFactory().run();
     this.showBiTreeV2(node,this.nodeWidth,this.nodeHeight+this.adjustHeight,null);
   }
 
-  handlePostIn(){
-    //console.log("handlePreIn");
+  //返回队列实例
+  getQueueFactory(){
+    return this.queue;
   }
-  handlePostPre(){
-    //console.log("handlePreIn");
+  //返回画图实例
+  getCanvasFactory(){
+    return this.canvas;
   }
 
-  clear(){
-    this.canvas.clear();
-  }
-  run(){
-    this.queue.run();
-  }
-  killAll(){
-    this.queue.killAll();
-  }
 }
 
 function BiTreefactory(data) {

@@ -1,45 +1,38 @@
 //队列
-import {Lib} from "./Lib";
-
 class Queue {
 
   constructor(machine){
     this.mq = new Array();
-    this.running = new Array();
     this.machine = machine;
   }
 
   push(data){
     this.mq.push(data);
   }
+
   clear(){
     this.mq = new Array();
   }
-  getPidList(){
-    return this.running;
-  }
-  killAll(){
-    for(var i in this.running){
-      clearTimeout(this.running[i]);
-    }
-  }
+
   run(){
 
     var i,j;
-    var pid;
 
-    for(i in this.mq){
-      //console.log(this.mq[i]);
-      pid = setTimeout(this.machine.handle,this.mq[i].delayTime,this.mq[i],this.machine);
-      this.running.push(pid);
-      //this.machine.handle(this.mq[i]);
-      if(this.mq[i].trigger.length>0){
-        for(j in this.mq[i].trigger){
-          pid = setTimeout(this.machine.handle,this.mq[i].trigger[j].delayTime,this.mq[i].trigger[j],this.machine);
-          this.running.push(pid);
+    //设置计数
+    this.machine.setCounter(this.mq.length);
+
+    this.mq.reverse();
+    var data;
+    while (this.mq.length >0){
+      data = this.mq.pop();
+      setTimeout(this.machine.handle,data.delayTime,data,this.machine);
+      if(data.trigger.length>0){
+        //@修正：有个小bug,trigger的没加到计数里面去
+        this.machine.setCounter(data.trigger.length);
+        for(j in data.trigger){
+          setTimeout(this.machine.handle,data.trigger[j].delayTime,data.trigger[j],this.machine);
         }
       }
-      delete this.mq[i];  //删除
     }
   }
 
