@@ -20,9 +20,9 @@
           </div>
         </transition>
       </div>
-      <div class="list"><!--https://github.com/gundamzaku/tantanwen-->
+      <div class="btn_menu"><!--https://github.com/gundamzaku/tantanwen-->
         <b-button variant="success" v-on:click="on = !on">数据结构</b-button>
-        <b-btn href="https://github.com/gundamzaku/tantanwen" v-b-tooltip.hover title="给个star支持一下吧!" variant="outline-success" style="top: 80px">GitHub源码</b-btn>
+        <b-btn href="https://github.com/gundamzaku/tantanwen" v-b-tooltip.hover title="给个star支持一下吧!" variant="outline-success" style="top: 40px;position:relative">GitHub源码</b-btn>
       </div>
     </div>
   </div>

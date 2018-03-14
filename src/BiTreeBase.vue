@@ -55,7 +55,7 @@
         agData:"",//A,B,C,D,E,F,G,H,#,#,#,I,#,#,J,#,K
         adDataArray: [],
         tree:"",
-        errMsg:"提示"
+        errMsg:"手机上看有点异常，用电脑最佳"
       }
     },
     mounted() {

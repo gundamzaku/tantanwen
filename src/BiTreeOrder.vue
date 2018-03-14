@@ -73,7 +73,7 @@
         mainDataArray:"",
         supportDataArray:"",
 
-        errMsg:"提示",
+        errMsg:"手机上看有点异常，用电脑最佳",
         errCode:0
       }
     },
