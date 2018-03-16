@@ -1,6 +1,5 @@
 <template>
   <div id="main">
-    <img src="/static/img/feed.jpg" style="display: none"/>
     <div class="idx">
       <transition name="in-out-translate-fade" mode="in-out">
         <div v-if="on" key="on" class="timg"><img src="/static/img/timg.png"/></div>
