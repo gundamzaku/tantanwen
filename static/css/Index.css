@@ -1,42 +1,57 @@
+html{
+  font-size: 16px;
+}
 .card-group{
-  height: 400px;
+  height: 100%;
 }
-.btn_menu{
-  left: 350px;
-  top: 20px;
+.btn_menu {
   position: absolute;
+  left: 70%;
+  top: 6rem;
 }
+.btn_menu button{
+   margin-top: 10px;
+ }
+.btn_menu a{
+  margin-top: 10px;
+}
+
+.btn_menu_git{
+  top: 1rem;
+  position:relative
+}
+
 .idx{
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
+  display:flex;
+  justify-content:center;
 }
 
 .timg{
+  height: 28rem;
   position: absolute;
-  #border-radius: 20px;
-  background-image: url(/static/img/timg.png);
   margin:0 auto;
-  width: 400px;
-  height: 401px;
-  #border:1px solid #ff5800
 }
 
-.menu{
+.timg img{
+  width: 28rem;
+}
+
+@media screen and (max-width:560px){
+  .timg img{
+    width: 24rem;
+  }
+}
+
+.menu {
   position: absolute;
-  #border-radius: 20px;
-  margin:0 auto;
-  width: 300px;
-  height: 400px;
-  #border:1px solid #ff5800
+  top: 50%;
+  transform: translate(0%,-50%);
 }
 
 .in-out-translate-wrapper{
-  width: 400px;
-  height: 401px;
+  width: 100%;
+  height: 100%;
 }
-
 .in-out-translate-fade-enter-active, .in-out-translate-fade-leave-active {
   transition: all .5s;
 }

@@ -3,7 +3,8 @@
     <div class="control">
       <div class="section">
 
-        <b-navbar toggleable type="dark" variant="info">
+        <b-navbar toggleable=""  type="dark" variant="info">
+          <b-navbar-nav id="nav_collapse">
           <b-btn v-b-modal.modal1>输入二叉树数据</b-btn>
           <b-modal id="modal1" title="Enter BiTree Data" @ok="makeBiTree()">
             <p class="my-4">请用如下格式[A,B,C,D,E]来列出二叉树数据，如为空则用“#”表示<br>例：<br>A,B,C,#,E,#,G,#,#,J</p>
@@ -16,16 +17,17 @@
               </b-form-textarea>
             </p>
           </b-modal>
-          <b-collapse is-nav id="nav_collapse" style="width:100px"></b-collapse>
-          <b-collapse is-nav id="nav_collapse">
-            <b-navbar-nav>
+        </b-navbar-nav>
+          <b-navbar-nav id="nav_collapse">
+            <b-navbar-nav is-nav id="nav_collapse" style="width:100px"></b-navbar-nav>
+            <b-navbar-nav id="nav_collapse">
               <b-button-group>
                 <b-button @click="preOrderTraverse1()">前序遍历</b-button>
                 <b-button @click="inOrderTraverse1()">中序遍历</b-button>
                 <b-button @click="postOrderTraverse1()">后序遍历</b-button>
               </b-button-group>
             </b-navbar-nav>
-          </b-collapse>
+          </b-navbar-nav>
         </b-navbar>
       </div>
       <div class="section">

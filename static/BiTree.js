@@ -29,16 +29,6 @@ class BiTree{
     this.nodeHeight = 100;//上层结点与下层结点的距离
     this.adjustHeight = 0;
     this.boxWidth = this.nodeWidth;//宽度
-    this.treeHight = this.getTreeHeight(this.data.length);
-    this.bottomCount = Math.pow(2,this.treeHight-1);
-    //结点位于屏幕半当中的位置
-    this.halfScrollWidth = parseInt(document.documentElement.scrollWidth/2)-this.nodeWidth/2;
-    //结点根据高度算出根的位置,20写死了，算是空间
-    this.nodeWidth = (this.nodeWidth*this.bottomCount+20*(this.bottomCount-1))/2;
-
-    if(this.nodeWidth<this.halfScrollWidth){
-      this.nodeWidth = this.halfScrollWidth;
-    }
 
     this.leftOffsetDefault = 180;//初始化两个结点的间距
     this.scaleWidth = 42;
@@ -48,6 +38,21 @@ class BiTree{
     this.errMsg = "";
   }
 
+  initNodeWidth(){
+
+    this.treeHight = this.getTreeHeight(this.data.length);
+    this.bottomCount = Math.pow(2,this.treeHight-1);
+    //结点位于屏幕半当中的位置
+    this.halfScrollWidth = parseInt(document.documentElement.scrollWidth/2)-this.nodeWidth/2;
+    //结点根据高度算出根的位置,20写死了，算是空间
+    this.nodeWidth = (this.nodeWidth*this.bottomCount+20*(this.bottomCount-1))/2;
+    if(this.nodeWidth<this.halfScrollWidth){
+      this.nodeWidth = this.halfScrollWidth;
+    }
+    //一些异型二叉树的宽度高度不是正常的，这里加了偏移的200，以后看怎么处理吧。
+    //我是不是太懒了？？
+    this.canvas.adjustCanvasScale(this.nodeWidth*2+200,this.treeHight*this.nodeHeight+this.nodeHeight+200);
+  }
   //设置错误
   setErr(code,msg){
     this.errCode = code;
@@ -64,6 +69,7 @@ class BiTree{
   //分配数据
   setData(data){
     this.data = data;
+    this.initNodeWidth();
   }
   //分配副数据
   setSupportData(data){
@@ -75,7 +81,7 @@ class BiTree{
       this.setErr(1002,"缺少足够的数据。")
       return false;
     }
-    if(data.length>30){
+    if(data.length>31){
       this.setErr(1002,"数据过多，只允许30个结点。");
       return false;
     }

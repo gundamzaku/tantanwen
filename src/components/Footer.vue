@@ -1,4 +1,5 @@
 <template>
+
   <div id="footer">
     <p> Copyright &copy; 2018-2018 中原一点点</p>
   </div>
@@ -7,14 +8,15 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   #footer{
-    position:absolute;
-    bottom:0;
-    width:100%;
-    background: #393939;
+    width: 100%;
+    height:1rem;
+    position:fixed;
+    bottom:0px;
+    left:0px;
     text-align:center;
-    font-size: 12px;
+    font-size: 0.8rem;
     color: white;
-    vertical-align:bottom;
+    background: black;
   }
   #footer p{
     vertical-align:bottom;

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+//import 'lib-flexible'
 
 import BiTreeBase from './BiTreeBase'
 import BiTreeOrder from './BiTreeOrder'
