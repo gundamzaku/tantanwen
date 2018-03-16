@@ -9,12 +9,13 @@ class Canvas {
     this.initCounter();
 
     //设置画板及大小
-    var canvas = document.getElementById(containerId);
-    canvas.width = document.documentElement.clientWidth;
-    canvas.height = document.documentElement.clientHeight;
+    this.canvas = document.getElementById(containerId);
+    //默认
+    this.canvas.width = document.documentElement.clientWidth;
+    this.canvas.height = document.documentElement.clientHeight;
 
     //设置画板的风格
-    this.ctx=canvas.getContext("2d");
+    this.ctx=this.canvas.getContext("2d");
     //线的粗细
     this.lineWidth = 2;
     //线的颜色
@@ -31,7 +32,10 @@ class Canvas {
     //延迟时间
     //this.delayTime = 400;
   }
-
+  adjustCanvasScale(width,height){
+    this.canvas.width = width;
+    this.canvas.height = height;
+  }
   /*
     初始化一个计数器
    */

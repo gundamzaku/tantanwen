@@ -1,10 +1,19 @@
+html{
+  font-size: 16px;
+}
 .card-group{
   height: 100%;
 }
-.btn_menu{
-  left: 90%;
-  top: 10%;
+.btn_menu {
   position: absolute;
+  left: 70%;
+  top: 6rem;
+}
+.btn_menu button{
+   margin-top: 10px;
+ }
+.btn_menu a{
+  margin-top: 10px;
 }
 
 .btn_menu_git{
@@ -13,57 +22,36 @@
 }
 
 .idx{
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 50%;
-  height: 60%;
-  transform: translate(-50%,-50%);
+  display:flex;
+  justify-content:center;
 }
 
 .timg{
-  position:absolute;
-  background-image: url(/static/img/timg.png);
-  background-repeat:no-repeat;
+  height: 28rem;
+  position: absolute;
   margin:0 auto;
-  width: 100%;
-  height: 100%;
-
 }
 
-@media screen and (max-width:860px){
-  .timg{
-    background-size:100% 100%;
-    -moz-background-size:100% 100%;
+.timg img{
+  width: 28rem;
+}
+
+@media screen and (max-width:560px){
+  .timg img{
+    width: 24rem;
   }
 }
 
-@media screen and (max-height:760px){
-  .timg{
-    background-size:100% 100%;
-    -moz-background-size:100% 100%;
-  }
-}
-
-.menu{
-  position:absolute;
-  margin:0 auto;
-  width: 80%;
-  height: 70%;
-}
-
-@media screen and (max-width:760px){
-  .menu{
-    width: 100%;
-    height: 100%;
-  }
+.menu {
+  position: absolute;
+  top: 50%;
+  transform: translate(0%,-50%);
 }
 
 .in-out-translate-wrapper{
   width: 100%;
   height: 100%;
 }
-
 .in-out-translate-fade-enter-active, .in-out-translate-fade-leave-active {
   transition: all .5s;
 }
