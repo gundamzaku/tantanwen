@@ -20,7 +20,7 @@
       </transition>
     </div>
     <div class="btn_menu">
-      <b-btn variant="success" v-on:click="on = !on">数据结构</b-btn>
+      <b-btn variant="outline-success" v-on:click="on = !on">数据结构</b-btn>
       <b-btn variant="outline-success" href="https://github.com/gundamzaku/tantanwen">GitHub源码</b-btn>
       <b-btn variant="outline-success" v-on:click="on = !on">关注我</b-btn>
     </div>

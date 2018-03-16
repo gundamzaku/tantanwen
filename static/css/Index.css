@@ -7,7 +7,7 @@ html{
 .btn_menu {
   position: absolute;
   left: 70%;
-  top: 6rem;
+  top: 3rem;
 }
 .btn_menu button{
    margin-top: 10px;
@@ -64,3 +64,4 @@ html{
 .in-out-translate-fade-leave-active {
   transform: translateX(-31px);
 }
+
