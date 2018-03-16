@@ -21,7 +21,7 @@ class BiTree{
 
     //定义一个结构体，二叉树的
     this.node = this.initNode();
-    this.delayTime = 400;
+    this.delayTime = 800;
     this.delayTimeOffset = 1;
     //要初始化一堆东西
 
@@ -45,13 +45,13 @@ class BiTree{
     //结点位于屏幕半当中的位置
     this.halfScrollWidth = parseInt(document.documentElement.scrollWidth/2)-this.nodeWidth/2;
     //结点根据高度算出根的位置,20写死了，算是空间
-    this.nodeWidth = (this.nodeWidth*this.bottomCount+20*(this.bottomCount-1))/2;
-    if(this.nodeWidth<this.halfScrollWidth){
-      this.nodeWidth = this.halfScrollWidth;
+    this.nodeAllWidth = (this.nodeWidth*this.bottomCount+20*(this.bottomCount-1))/2;
+    if(this.nodeAllWidth<this.halfScrollWidth){
+      //this.nodeAllWidth = this.halfScrollWidth;
     }
     //一些异型二叉树的宽度高度不是正常的，这里加了偏移的200，以后看怎么处理吧。
     //我是不是太懒了？？
-    this.canvas.adjustCanvasScale(this.nodeWidth*2+200,this.treeHight*this.nodeHeight+this.nodeHeight+200);
+    this.canvas.adjustCanvasScale(this.nodeAllWidth*2+200,this.treeHight*this.nodeHeight+this.nodeHeight+200);
   }
   //设置错误
   setErr(code,msg){
@@ -316,7 +316,9 @@ class BiTree{
     var node = this.binaryTreeFromPreIn(0,0,this.data.length);
     this.adjustHeight = 100;
     this.getQueueFactory().run();
-    this.showBiTreeV2(node,this.nodeWidth,this.nodeHeight+this.adjustHeight,null);
+    this.delayTimeOffset = 1;
+
+    this.showBiTreeV2(node,this.nodeAllWidth,this.nodeHeight+this.adjustHeight,null);
   }
 
   binaryTreeFromPreIn(index,sIndex,length){
@@ -369,8 +371,9 @@ class BiTree{
   handleInPost(){
     var node = this.binaryTreeFromInPost(0,0,this.data.length);
     this.adjustHeight = 100;
+    this.delayTimeOffset = 1;
     this.getQueueFactory().run();
-    this.showBiTreeV2(node,this.nodeWidth,this.nodeHeight+this.adjustHeight,null);
+    this.showBiTreeV2(node,this.nodeAllWidth,this.nodeHeight+this.adjustHeight,null);
   }
 
   //返回队列实例

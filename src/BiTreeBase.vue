@@ -95,7 +95,7 @@
         this.tree.delayTimeOffset = 0;
 
         //画出二叉树
-        this.tree.showBiTree(this.tree.node,this.tree.nodeWidth,this.tree.nodeHeight,null);
+        this.tree.showBiTree(this.tree.node,this.tree.nodeAllWidth,this.tree.nodeHeight,null);
 
         //启动动画
         this.tree.getQueueFactory().run();
