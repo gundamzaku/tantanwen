@@ -21,7 +21,10 @@
     <div class="btn_menu">
       <b-btn variant="outline-success" v-on:click="on = !on">数据结构</b-btn>
       <b-btn variant="outline-success" href="https://github.com/gundamzaku/tantanwen">GitHub源码</b-btn>
-      <b-btn variant="outline-success" v-on:click="on = !on">关注我</b-btn>
+      <b-btn variant="outline-success" v-b-modal.modalPopover>关注我</b-btn>
+      <b-modal id="modalPopover" title="扫码关注" hide-footer>
+      <img src="/static/img/weixin.jpg" width="100%">
+      </b-modal>
     </div>
   </div>
 
