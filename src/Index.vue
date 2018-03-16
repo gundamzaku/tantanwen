@@ -1,5 +1,6 @@
 <template>
   <div id="main">
+    <img src="/static/img/feed.jpg" style="display: none"/>
     <div class="idx">
       <transition name="in-out-translate-fade" mode="in-out">
         <div v-if="on" key="on" class="timg"><img src="/static/img/timg.png"/></div>
@@ -21,6 +22,7 @@
     <div class="btn_menu">
       <b-btn variant="success" v-on:click="on = !on">数据结构</b-btn>
       <b-btn variant="outline-success" href="https://github.com/gundamzaku/tantanwen">GitHub源码</b-btn>
+      <b-btn variant="outline-success" v-on:click="on = !on">关注我</b-btn>
     </div>
   </div>
 
