@@ -18,6 +18,8 @@ class Event {
     this.canvas["isDrawLine"] = 0;  //是否画线
     this.canvas["toX"] = 0;
     this.canvas["toY"] = 0;
+    this.toElementId = null;//目标元素
+    this.moveInterval = 200;
   }
 }
 
@@ -26,5 +28,5 @@ function EventFactory() {
 }
 
 export {
-  EventFactory
+  Event
 }

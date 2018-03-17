@@ -1,19 +1,21 @@
-import {CanvasFactory} from '../static/Canvas.js';
-import {EventFactory} from '../static/Event.js';
-import {QueueFactory} from '../static/Queue.js';
+import {Canvas} from '../class/Canvas.js';
+import {Event} from '../class/Event.js';
+import {Queue} from '../class/Queue.js';
+import {Father} from "../class/Father";
 
-class BiTree{
+class BiTree extends Father{
 
   constructor(){
 
+    super();
     //var object = function(){};
 
     //原型继承
     //object.prototype = new CanvasFactory("treeCanvas");
     //算了，独立使用
-    this.canvas = new CanvasFactory("treeCanvas");
+    this.canvas = new Canvas("treeCanvas");
     //queue还是独立吧
-    this.queue = new QueueFactory(this.canvas);
+    this.queue = new Queue(this.canvas);
 
     //主数据和副数据
     this.data = "";
@@ -53,19 +55,7 @@ class BiTree{
     //我是不是太懒了？？
     this.canvas.adjustCanvasScale(this.nodeAllWidth*2+200,this.treeHight*this.nodeHeight+this.nodeHeight+200);
   }
-  //设置错误
-  setErr(code,msg){
-    this.errCode = code;
-    this.errMsg = msg;
-  }
-  //得到错误码
-  getErrCode(){
-    return this.errCode;
-  }
-  //得到错误提示
-  getErrMsg(){
-    return this.errMsg;
-  }
+
   //分配数据
   setData(data){
     this.data = data;
@@ -75,6 +65,7 @@ class BiTree{
   setSupportData(data){
     this.supportData = data;
   }
+
   //检查数据
   checkData(data){
     if(data.length<=0){
@@ -85,17 +76,6 @@ class BiTree{
       this.setErr(1002,"数据过多，只允许30个结点。");
       return false;
     }
-  }
-
-  /*
-    监控动画
-   */
-  watchDone(){
-    if(this.getCanvasFactory().getCounter()>0){
-      this.setErr(1003,"动画渲染未完成。")
-      return false;
-    }
-    return true;
   }
 
   //顺序二叉树
@@ -297,20 +277,6 @@ class BiTree{
     }
   }
 
-  createEvent (type,value,id,delayTime,tag,css,offsetX,offsetY,container) {
-    var event = new EventFactory();
-    event.container = container;
-    event.type = type;
-    event.value = value;
-    event.id = id;
-    event.delayTime = delayTime;
-    event.offsetX = offsetX;
-    event.offsetY = offsetY;
-    event.elementTag = tag;
-    event.elementCss = css;
-    return event;
-
-  }
   handlePreIn(){
 
     var node = this.binaryTreeFromPreIn(0,0,this.data.length);
@@ -376,20 +342,8 @@ class BiTree{
     this.showBiTreeV2(node,this.nodeAllWidth,this.nodeHeight+this.adjustHeight,null);
   }
 
-  //返回队列实例
-  getQueueFactory(){
-    return this.queue;
-  }
-  //返回画图实例
-  getCanvasFactory(){
-    return this.canvas;
-  }
-
 }
 
-function BiTreefactory(data) {
-  return new BiTree(data);
-}
 export {
-  BiTreefactory
+  BiTree
 }
