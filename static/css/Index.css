@@ -41,11 +41,14 @@ html{
     width: 24rem;
   }
 }
-
+.index-list-header{
+  font-weight:bold;
+  background: #9fcdff;
+}
 .menu {
   position: absolute;
-  top: 50%;
-  transform: translate(0%,-50%);
+  top: 40%;
+  transform: translate(0%,-40%);
 }
 
 .in-out-translate-wrapper{

@@ -47,7 +47,7 @@
 </template>
 
 <script>
-  import {BiTreefactory} from '../static/BiTree.js';
+  import {BiTree} from '../static/js/tree/BiTree.js';
   import "../static/css/BiTree.css";
 
   var optionsType = [
@@ -106,7 +106,12 @@
       makeTree:function () {
 
         if(typeof(this.tree) != "object"){
-          this.tree = new BiTreefactory();
+          this.tree = new BiTree();
+        }
+
+        if(this.tree.watchDone() == false){//监控有没渲染完成
+          this.errMsg = this.tree.getErrMsg();
+          return false;
         }
 
         //分解成数组
@@ -121,11 +126,6 @@
 
         //检查数据
         if(this.tree.checkData(this.supportDataArray) == false){
-          this.errMsg = this.tree.getErrMsg();
-          return false;
-        }
-
-        if(this.tree.watchDone() == false){//监控有没渲染完成
           this.errMsg = this.tree.getErrMsg();
           return false;
         }

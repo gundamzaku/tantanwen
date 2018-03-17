@@ -5,6 +5,11 @@ import VueRouter from 'vue-router'
 import BiTreeBase from './BiTreeBase'
 import BiTreeOrder from './BiTreeOrder'
 import Index from './Index'
+import Sort from './Sort'
+
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+import '../static/css/Common.css';
 
 //组件
 import Footer from './components/Footer'
@@ -15,7 +20,8 @@ Vue.config.productionTip = false
 const routes = [
   { path: '/', component: Index },
   { path: '/biTreeBase', component: BiTreeBase },
-  { path:'/biTreeOrder',component:BiTreeOrder}
+  { path:'/biTreeOrder',component:BiTreeOrder},
+  { path:'/sort',component:Sort}
 ]
 
 const router = new VueRouter({

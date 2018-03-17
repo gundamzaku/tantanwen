@@ -43,10 +43,8 @@
 
   import Vue from 'vue'
   import BootstrapVue from 'bootstrap-vue'
-  import {BiTreefactory} from '../static/BiTree.js';
-  import 'bootstrap/dist/css/bootstrap.css'
-  import 'bootstrap-vue/dist/bootstrap-vue.css'
-  import "../static/css/BiTree.css";
+  import {BiTree} from "../static/js/tree/BiTree";
+  import '../static/css/BiTree.css';
 
   Vue.use(BootstrapVue);
 
@@ -68,18 +66,19 @@
 
         this.adDataArray = this.agData.split(",");
         if(typeof(this.tree) != "object"){
-          this.tree = new BiTreefactory();
+          this.tree = new BiTree();
         }
+
+        if(this.tree.watchDone() == false){//监控有没渲染完成
+          this.errMsg = this.tree.getErrMsg();
+          return false;
+        }
+
         //分配数据
         this.tree.setData(this.adDataArray);
 
         //检查数据
         if(this.tree.checkData(this.adDataArray) == false){
-          this.errMsg = this.tree.getErrMsg();
-          return false;
-        }
-
-        if(this.tree.watchDone() == false){//监控有没渲染完成
           this.errMsg = this.tree.getErrMsg();
           return false;
         }

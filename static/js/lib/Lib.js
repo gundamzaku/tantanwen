@@ -19,6 +19,7 @@ var Lib = {
     if (this.hasClass(ele, cls)) {
       var reg = new RegExp("(\\s|^)" + cls + "(\\s|$)");
       ele.className = ele.className.replace(reg, "");
+
     }
   },
 
