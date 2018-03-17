@@ -86,8 +86,8 @@
         //分配数据
         this.sort.setData(this.adDataArray);
         //画图
-        this.sort.makeMainList(100,100);
-        this.sort.makeSortList(100,150);
+        this.sort.makeMainList(50,150);
+        this.sort.makeSortList(50,200);
         this.sort.getQueueFactory().run();
         this.sort.sort();
         this.sort.getQueueFactory().addDelayTime(this.newDelayTime);
