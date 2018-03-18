@@ -1,6 +1,6 @@
 import {Sort} from '../sort/Sort'
 
-class SelectionSort extends Sort{
+class InsertionSort extends Sort{
 
   constructor() {
     //继承
@@ -10,22 +10,17 @@ class SelectionSort extends Sort{
   sort(){
     var n;
     var i,j;
-    var min;
     n = this.data.length;
 
     var dtime = this.delayTime+= this.delayTimeStart;
     for(i=0;i<n;i++) {
-      min = i;
-      for(j=i+1;j<n;j++) {
-        if(this.less(this.data[j],this.data[min]) == true) {
-          min = j;
-        }
+      for(j=i;j>0 && this.less(this.data[j],this.data[j-1]);j--) {
+        dtime = this.exch(j,j-1,dtime);
       }
-      dtime = this.exch(i,min,dtime);
     }
   }
 }
 
 export {
-  SelectionSort
+  InsertionSort
 }
