@@ -133,7 +133,7 @@ class BiTree extends Father{
 
   orderTraversel(node,type){
 
-    this.delayTimeOffset = 0;
+    this.delayTimeOffset = 2;
     if(type == "in"){
       this.inOrderTraverse1(node);
     }else if(type == "post"){
