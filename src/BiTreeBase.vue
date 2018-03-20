@@ -44,6 +44,7 @@
   import Vue from 'vue'
   import BootstrapVue from 'bootstrap-vue'
   import {BiTree} from "../static/js/tree/BiTree";
+  import '../static/css/Common.css';
   import '../static/css/BiTree.css';
 
   Vue.use(BootstrapVue);
