@@ -14,11 +14,8 @@
                 <b-list-group-item href="/Sort">选择排序法</b-list-group-item>
                 <b-list-group-item href="/Sort">插入排序法</b-list-group-item>
                 <b-list-group-item href="/Sort">希尔排序法</b-list-group-item>
+                <b-list-group-item href="/Sort">归并排序法</b-list-group-item>
               </b-list-group>
-              <p class="card-text mt-2">
-                *关于二叉树的一些操作的图形化展示<br>
-                *新增基本排序算法之选择排序、插入排序法、希尔排序法（均在同一页面）
-              </p>
             </b-card>
           </b-card-group>
         </div>

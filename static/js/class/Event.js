@@ -23,10 +23,6 @@ class Event {
   }
 }
 
-function EventFactory() {
-  return new Event();
-}
-
 export {
   Event
 }

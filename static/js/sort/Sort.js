@@ -47,6 +47,7 @@ class Sort extends Father{
       //this.sortNode[i] = e; //这TM是传引用的，这坑吃亏
       this.sortNode[i] = {
         "id":e.id,
+        "index":i,
         "value":e.value,
         "offsetX":e.offsetX,
         "offsetY":e.offsetY,

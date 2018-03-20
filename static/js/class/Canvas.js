@@ -123,8 +123,11 @@ class Canvas {
       Lib.removeClass(document.getElementById(node.id), "forceNode");
     }else if(node.type == "nothing"){
     }else if(node.type == "exchange"){
-      ths.exchange(node);
+      ths.exchange(node,false);
+    }else if(node.type == "move"){
+      ths.exchange(node,true);
     }
+
     ths.reduceCounter(node,ths);
   }
 
@@ -152,21 +155,24 @@ class Canvas {
   }
 
   //移动元素
-  exchange(node){
+  exchange(node,onlyMove){
 
     //用时间轴来移动
     var toLeft,toTop,fromLeft,fromTop;
 
     toLeft = node.canvas["toX"];
     toTop = node.canvas["toY"];
+
     fromLeft = node.offsetX;
     fromTop = node.offsetY;
 
     var toElement = document.getElementById(node.toElementId);
     var element = document.getElementById(node.id);
 
-    this.moveExchange(element,fromLeft,toLeft,node.moveInterval);
-    this.moveExchange(toElement,toLeft,fromLeft,node.moveInterval);
+    this.moveExchange(element,fromLeft,toLeft,fromTop,toTop,node.moveInterval);
+    if(onlyMove == false){
+      this.moveExchange(toElement,toLeft,fromLeft,fromTop,toTop,node.moveInterval);
+    }
   }
 
   /*
@@ -175,13 +181,19 @@ class Canvas {
     我预计在400毫秒内完成，因此我的间隔就是offsetLeft-toLeft的差值distance，由intervalTime/distance得到平均值
     然后就在这个时间段内进行减法操作直到完成
    */
-  moveExchange(element,fromLeft,toLeft,intervalAllTime){
-
+  moveExchange(element,fromLeft,toLeft,fromTop,toTop,intervalAllTime){
+    console.log(fromTop+"  "+toTop);
     var offsetLeft = fromLeft;
     var toLeft = toLeft;
+
+    var offsetTop = fromTop;
+    var toTop = toTop;
+
     var unit = 1;
     var intervalAllTime = intervalAllTime;
-    var distance = Math.abs(offsetLeft - toLeft);
+    var distance = Math.floor(Math.sqrt( Math.pow(Math.abs(offsetLeft - toLeft),2)+Math.pow(Math.abs(offsetTop - toTop),2) )) ;
+
+    //var distance = Math.abs(offsetLeft - toLeft);
     //试下来如果距离超长的还是没有办法，这里加个双保险吧。
     var intervalTime = Math.floor(intervalAllTime/distance);
     if(intervalAllTime<distance){
@@ -195,8 +207,9 @@ class Canvas {
 
     function doMove() {
 
-      if(offsetLeft == toLeft){
+      if(offsetLeft == toLeft && offsetTop == toTop){
         element.style.left = offsetLeft+"px";
+        element.style.top = offsetTop+"px";
         clearInterval(intervalId);
       } else {
         if(offsetLeft>toLeft){
@@ -207,7 +220,16 @@ class Canvas {
           offsetLeft += unit;
           if(offsetLeft>toLeft)offsetLeft = toLeft;
         }
+        if(offsetTop>toTop){
+          offsetTop -= unit;
+          if(offsetTop<toTop)offsetTop = toTop;
+        }
+        if(offsetTop<toTop){
+          offsetTop += unit;
+          if(offsetTop>toTop)offsetTop = toTop;
+        }
         element.style.left = offsetLeft+"px";
+        element.style.top = offsetTop+"px";
       }
     }
   }
