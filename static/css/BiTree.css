@@ -5,7 +5,7 @@
   line-height: 30px; /*设置line-height与父级元素的height相等*/
   overflow: hidden; /*防止内容超出容器或者产生自动换行*/
   position: absolute;
-  background-color: yellow;
+  #background-color: yellow;
   display: inline-block;
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
