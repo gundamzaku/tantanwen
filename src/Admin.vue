@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div id="admin-main">
     <div class="admin-login">
 
       <el-form ref="form" :model="form">
@@ -55,7 +55,7 @@
 </script>
 <style>
 
-  #main{
+  #admin-main{
     width: 100%;
     height: 100%;
     display: flex;
