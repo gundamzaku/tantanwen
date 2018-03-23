@@ -83,8 +83,8 @@ body > .el-container {
 }
 
 .weixin-qcode{
-  width: 25rem;
-  height: 25rem;
+  width: 20rem;
+  height: 20rem;
   background-size:100% 100%;
   -moz-background-size:100% 100%;
   background-repeat: no-repeat;
@@ -124,12 +124,13 @@ body > .el-container {
   left: 0rem;
   top: 0rem;
   position: fixed;
-  background: #f9f9f9;
+  background: #f9db6b;
   z-index:4;
   display: flex;
   align-content: center;
   justify-content: center;
-  box-shadow:2px 0px 3px #000
+  box-shadow:2px 0px 3px #000;
+  opacity:0.4;
 
 }
 
@@ -167,6 +168,7 @@ body > .el-container {
   display: flex;
   justify-content: center;
 }
+
 .index-card-left{
   text-align: left;
 }
@@ -195,6 +197,15 @@ body > .el-container {
 
   .el-tabs{
     width: 100%;
+  }
+
+  .index-weixin-dialog .el-dialog{
+    width: 90%;
+  }
+
+  .weixin-qcode{
+    width: 15rem;
+    height: 15rem;
   }
 }
 

@@ -67,7 +67,7 @@
         </div>
       </el-main>
     </el-container>
-    <el-dialog :visible.sync="dialogVisible" title="扫码关注" width="60%">
+    <el-dialog :visible.sync="dialogVisible" title="扫码关注" class="index-weixin-dialog">
       <div class="weixin-qcode"></div>
     </el-dialog>
   </div>
@@ -133,14 +133,3 @@
     }
   }
 </script>
-<style>
-
-  #main{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items:center;
-    justify-content: center;
-  }
-
-</style>
