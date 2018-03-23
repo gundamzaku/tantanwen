@@ -1,5 +1,5 @@
 <template>
-  <div id="admin-main">
+  <div id="main">
     <div class="admin-login">
 
       <el-form ref="form" :model="form">
@@ -48,6 +48,7 @@
     },
     methods: {
       onSubmit() {
+
         console.log('submit!');
       }
     }
@@ -55,7 +56,7 @@
 </script>
 <style>
 
-  #admin-main{
+  #main{
     width: 100%;
     height: 100%;
     display: flex;
