@@ -1,6 +1,6 @@
 <template>
-  <div id="main">
-    <div id="sidemenu" v-on:click="expand()"><i class="el-icon-caret-right"></i></div>
+  <div id="main" v-on:click="monitorDocumentClick">
+    <div id="sidemenu" v-on:click="expand()"><i id="mimi" class="el-icon-caret-right"></i></div>
     <div id="sidebar">
       <el-menu
             default-active="1">
@@ -33,7 +33,7 @@
       </el-header>
       <el-main>
         <div class="index-main" v-if="isShow === 1"></div>
-        <div v-else-if="isShow === 2">
+        <div class="index-main-content" v-else-if="isShow === 2">
           <el-tabs type="border-card">
             <el-tab-pane label="数据结构">
               <el-collapse accordion>
@@ -102,6 +102,18 @@
       }
     },
     methods: {
+      monitorDocumentClick(event){
+        if(event.target.id == "sidemenu" || event.target.id == "mimi"){
+          return false;
+        }
+
+        var sidemenu = document.querySelector("#sidemenu i");
+        var sidebar = document.querySelector("#sidebar");
+        if(sidemenu.className == "el-icon-caret-bottom"){
+          sidemenu.className = "el-icon-caret-right";
+          sidebar.className = "menu-move-to-left"
+        }
+      },
       handleSelect(key, keyPath){
         console.log(key, keyPath)
       },
