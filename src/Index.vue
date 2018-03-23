@@ -6,19 +6,19 @@
             default-active="1">
             <el-menu-item index="1">
               <i class="el-icon-arrow-right"></i>
-              <a href="https://www.ele.me">数据算法</a>
+              <a @click="isShow = 2">数据算法</a>
+            </el-menu-item>
+            <el-menu-item index="2">
+              <i class="el-icon-arrow-right"></i>
+              <a href="https://github.com/gundamzaku/tantanwen">GitHub源码</a>
             </el-menu-item>
             <el-menu-item index="3">
               <i class="el-icon-arrow-right"></i>
-              <a href="https://www.ele.me">GitHub源码</a>
-            </el-menu-item>
-            <el-menu-item index="3">
-              <i class="el-icon-arrow-right"></i>
-              <a href="https://www.ele.me">后台地址</a>
+              <a href="/admin">后台地址</a>
             </el-menu-item>
             <el-menu-item index="4">
               <i class="el-icon-arrow-right"></i>
-              <a>关注我</a>
+              <a @click="dialogVisible = true">关注我</a>
             </el-menu-item>
       </el-menu>
      </div>
