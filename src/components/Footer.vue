@@ -9,14 +9,14 @@
 <style scoped>
   #footer{
     width: 100%;
-    height:1rem;
+    height:1.6rem;
     position:fixed;
     bottom:0px;
     left:0px;
     text-align:center;
     font-size: 0.8rem;
     color: white;
-    background: black;
+    background: rgba(0, 0, 0, 0.36);
   }
   #footer p{
     vertical-align:bottom;

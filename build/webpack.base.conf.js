@@ -11,7 +11,8 @@ function resolve (dir) {
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    app: './src/main.js'
+    app: './src/main.js',
+    admin: './src/main_admin.js', //新增的配置
   },
   output: {
     path: config.build.assetsRoot,

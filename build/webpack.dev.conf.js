@@ -25,6 +25,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     clientLogLevel: 'warning',
     historyApiFallback: {
       rewrites: [
+        //新增加的
+        { from: /admin/, to: path.posix.join(config.dev.assetsPublicPath, 'admin.html') },
         { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
       ],
     },
@@ -55,7 +57,15 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
-      inject: true
+      inject: true,
+      chunks: ['app']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'admin.html',//生成的html
+      template: 'admin.html',//来源html
+      inject: true,//是否开启注入
+      chunks: ['admin']
+      //chunks: ['app2']//需要引入的Chunk，不配置就会引入所有页面的资源
     }),
     // copy custom static assets
     new CopyWebpackPlugin([

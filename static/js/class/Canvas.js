@@ -182,7 +182,7 @@ class Canvas {
     然后就在这个时间段内进行减法操作直到完成
    */
   moveExchange(element,fromLeft,toLeft,fromTop,toTop,intervalAllTime){
-    console.log(fromTop+"  "+toTop);
+
     var offsetLeft = fromLeft;
     var toLeft = toLeft;
 

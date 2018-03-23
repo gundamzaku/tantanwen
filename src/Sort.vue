@@ -24,7 +24,7 @@
             <b-navbar-nav is-nav id="nav_collapse" style="width:50px"></b-navbar-nav>
             <b-navbar-nav id="nav_collapse">
               <b-button-group>
-                增加动画延时（毫秒）<b-form-input id="delayTimeConfig" v-model="newDelayTime" type="text" class="sort-input-delayTime"></b-form-input>
+                增加动画延时（毫秒）<b-form-input id="delayTimeConfig" v-model="newDelayTime" type="text" disabled class="sort-input-delayTime"></b-form-input>
               </b-button-group>
             </b-navbar-nav>
           </b-navbar-nav>
@@ -84,20 +84,47 @@
           "      <div>\n" +
           "        <a href=\"https://github.com/gundamzaku/algorithms/blob/master/shellSort.go\" target=\"_blank\">查看Golang代码实现</a>\n" +
           "      </div>",
-          4:"分治排序，太蛋疼了，搞了我一天。动画效果不是很理想，我先想想怎么弄比较好。"
+          4:"<span>TIPS：</span>\n" +
+          "      归并排序（Merge's Sort）又叫分治排序，终于把动画演算好了，感觉脑子要秃了，脑汁要干了，不想再碰了。<br>\n" +
+          "      <div>\n" +
+          "        <a href=\"https://github.com/gundamzaku/algorithms/blob/master/mergeSort.go\" target=\"_blank\">查看Golang代码实现</a>\n" +
+          "      </div>",
         },
         isShow : false,
         dfBlockNum : 3,
         //agData:"S,O,R,T,E,X,A,M,P,L,E",
-        agData:"M,E,R,G,E,S,O,R,T,E,X,A,M,P,L,E",//,T,E,X,A,M,P,L,E
+        agData:"M,E,R,G,E,S,O,R,T,E,X,A,M,P,L,E",//,R,G,E,S,O,R,T,E,X,A,M,P,L,E
         adDataArray: [],
         tree:"",
-        errMsg:"手机上看有点异常，用电脑最佳",
-        newDelayTime:0
+        errMsg:"小提示",
+        newDelayTime:0,
+        type:null //selection,insertion,shell,merge
       }
     },
     mounted() {
-      //console.log(666);
+
+      var get = this.$route.query;
+      if(Object.keys(get).length>0){
+        if(get.type == "selection" || get.type == "insertion" || get.type == "shell" || get.type == "merge"){
+          //触发事件
+          switch(get.type) {
+            case "selection":
+              this.supportType = 1
+              break;
+            case "insertion":
+              this.supportType = 2
+              break;
+            case "shell":
+              this.supportType = 3
+              break;
+            case "merge":
+              this.supportType = 4
+              break;
+          }
+          var navCollapse = document.querySelector("#nav_collapse button");
+          navCollapse.click();
+        }
+      }
     },
     methods: {
       dynamicOptions: function (event) {
@@ -149,7 +176,7 @@
         }
         this.sort.getQueueFactory().addDelayTime(this.newDelayTime);
         this.sort.getQueueFactory().run();
-        this.sort.show();
+        //this.sort.show();
       }
     }
   }

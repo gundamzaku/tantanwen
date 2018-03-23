@@ -18,6 +18,21 @@ class Queue {
     this.mq = new Array();
   }
 
+  debug(){
+    var data;
+    if (this.mq.length >0){
+      data = this.mq.shift();
+      setTimeout(this.machine.handle,100,data,this.machine);
+
+      if(data.trigger.length>0){
+        for(j in data.trigger){
+          setTimeout(this.machine.handle,100,data.trigger[j],this.machine);
+        }
+      }
+    }
+  }
+
+
   run(){
 
     var i,j;

@@ -15,7 +15,7 @@ class Sort extends Father{
 
     this.sortNode = new Array();
 
-    this.delayTime = 1000;
+    this.delayTime = 800;
     this.delayTimeInterval = 400;//每个动作的间隔是多少
 
   }

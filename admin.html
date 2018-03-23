@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="keywords" content="数据结构 二叉树 顺序 中序 倒序" />
+    <meta name="description" itemprop="description" content="数据结构 二叉树 顺序 中序 倒序" />
+    <title>谈谈文-后台管理</title>
+  </head>
+  <body>
+  <div id="admin">
+    <el-container>
+      <el-header>我来组成头部（还没搭好）</el-header>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+      <el-footer><footer-template/></el-footer>
+    </el-container>
+  </div>
+  </body>
+</html>
+<style>
+  html,body{
+    height: 100%;
+    padding: 0rem;
+    margin: 0rem;
+    font-size: 0.9rem;
+  }
+  #admin{
+    height: 100%;
+  }
+  .el-header, .el-footer {
+    background-color: #B3C0D1;
+    color: #333;
+    text-align: center;
+    #line-height: 60px;
+  }
+
+  .el-aside {
+    background-color: #D3DCE6;
+    color: #333;
+    text-align: center;
+    line-height: 200px;
+  }
+
+  .el-main {
+    background-color: #E9EEF3;
+    color: #333;
+    text-align: center;
+  }
+  .el-container {
+    height: 100%;
+  }
+
+  body > .el-container {
+    margin-bottom: 40px;
+  }
+
+  .el-container:nth-child(5) .el-aside,
+  .el-container:nth-child(6) .el-aside {
+    line-height: 260px;
+  }
+
+  .el-container:nth-child(7) .el-aside {
+    line-height: 320px;
+  }
+</style>

@@ -20,6 +20,7 @@ class Event {
     this.canvas["toY"] = 0;
     this.toElementId = null;//目标元素
     this.moveInterval = 200;
+    this.mark = null;
   }
 }
 
