@@ -6,17 +6,21 @@
             default-active="1">
             <el-menu-item index="1">
               <i class="el-icon-arrow-right"></i>
-              <a @click="isShow = 2">数据算法</a>
+              <a href="/">首页</a>
             </el-menu-item>
             <el-menu-item index="2">
               <i class="el-icon-arrow-right"></i>
-              <a href="https://github.com/gundamzaku/tantanwen">GitHub源码</a>
+              <a @click="isShow = 2">数据算法</a>
             </el-menu-item>
             <el-menu-item index="3">
               <i class="el-icon-arrow-right"></i>
-              <a href="/admin">后台地址</a>
+              <a href="https://github.com/gundamzaku/tantanwen">GitHub源码</a>
             </el-menu-item>
             <el-menu-item index="4">
+              <i class="el-icon-arrow-right"></i>
+              <a href="/admin">后台地址</a>
+            </el-menu-item>
+            <el-menu-item index="5">
               <i class="el-icon-arrow-right"></i>
               <a @click="dialogVisible = true">关注我</a>
             </el-menu-item>
@@ -25,10 +29,11 @@
     <el-container>
       <el-header>
         <el-menu :default-active="activeIndex" mode="horizontal">
-          <el-menu-item index="1" @click="isShow = 2"><a>数据算法</a></el-menu-item>
-          <el-menu-item index="2"><a href="https://github.com/gundamzaku/tantanwen">GitHub源码</a></el-menu-item>
-          <el-menu-item index="3"><a href="/admin">后台地址</a></el-menu-item>
-          <el-menu-item index="4" @click="dialogVisible = true"><a>关注我</a></el-menu-item>
+          <el-menu-item index="1"><a href="/">首页</a></el-menu-item>
+          <el-menu-item index="2" @click="isShow = 2"><a>数据算法</a></el-menu-item>
+          <el-menu-item index="3"><a href="https://github.com/gundamzaku/tantanwen">GitHub源码</a></el-menu-item>
+          <el-menu-item index="4"><a href="/admin">后台地址</a></el-menu-item>
+          <el-menu-item index="5" @click="dialogVisible = true"><a>关注我</a></el-menu-item>
         </el-menu>
       </el-header>
       <el-main>
